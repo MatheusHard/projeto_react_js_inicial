@@ -10,6 +10,13 @@
     --gray-900: #121214;
 
     --green-500: #08875f;
+    --green-300: #00B37E;
+
+}
+/*Mudar a cor do selecionado ao apertar o TAB*/
+:focus{
+outline: transparent;
+box-shadow: 0 0 0 2px var(--green-300);
 }
 
 * {
