@@ -12,6 +12,8 @@
     --green-500: #08875f;
     --green-300: #00B37E;
 
+    --red-500: #F75A68;
+
 }
 /*Mudar a cor do selecionado ao apertar o TAB*/
 :focus{

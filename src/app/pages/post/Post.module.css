@@ -102,8 +102,12 @@
     visibility: hidden;
     max-height: 0;
 }
-/*Caso aolgum input tenha sido apertado, o foco withim muda*/
+/*Caso algum input tenha sido apertado, o foco withim é acionado.*/
 .commentForm:focus-within footer{
     visibility: visible;
     max-height: none;
+}
+
+.commentList{
+    margin-top: 2rem;
 }
