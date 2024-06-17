@@ -4,7 +4,17 @@
     padding: 0 1rem;
 
     display: grid;
-    grid-template-columns: 256px 1fr;
+    grid-template-columns: 256px 1fr;/*Grid das duas colunas*/
     gap: 2rem;
     align-items: flex-start;
+}
+
+/*Aqui está sendo aplicada a responsividade para TAblets e SmathPhones*/
+@media(max-width: 768px){
+    html {
+        font-size: 87.5%;
+    }
+    .wrapper {
+        grid-template-columns: 1fr;
+    }
 }
