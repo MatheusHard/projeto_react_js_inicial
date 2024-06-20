@@ -1,44 +1,85 @@
+import { useState } from 'react'
 import { Avatar } from '../../../components/avatar/Avatar'
 import { Comment } from '../comment/Comment'
 import styles from './Post.module.css'
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBr from 'date-fns/locale/pt-BR'
 
-export function Post() {
-    
-    return (
+
+
+export function Post({author, publishedAt, contents}) {
+
+
+  //Formatando a data:
+   const dataDescrita = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {locale: ptBr})
+   const calculoTempo = formatDistanceToNow(publishedAt, {locale: ptBr, addSuffix: true})
+   
+   //States
+   const  [comments, setComments] = useState([]) 
+   const  [newComment, setNewComment] = useState('')
+
+   function handleAddComment(){
+      event.preventDefault()
+      setComments([...comments, newComment])
+      setNewComment('')
+   }
+
+   function handleNewCommentChange(){
+    setNewComment(event.target.value)
+   }
+
+   return (
         
         <article className={styles.post}>
           <header>
             <div className={styles.author}>
-                <Avatar borda={true} src={'https://github.com/MatheusHard.png'} />
+                <Avatar borda={true} src={author.avatarUrl} />
                 <div className={styles.authorInfo}>
-                    <strong>Matheus Hardman</strong>
-                    <span>Full Stack MilkShake</span>
+                    <strong>{author.name}</strong>
+                    <span>{author.role}</span>
                 </div>
             </div>
-            <time 
-                title='12 de Fevereiro às 08:00'
-                dateTime='2024-02-12 08:00:00'>Publicado à 2h</time>
+            <time title={dataDescrita} dateTime={publishedAt.toISOString()}>
+                {calculoTempo}
+            </time>
           </header>      
 
           <div className={styles.content}>
-            <p>Fala poivo....</p>
-            <p>Voces estudam, <a href='#'>ou so coçam?</a></p>
-            <p>Deixe de Onda</p>
+          {/*Listar conteudos*/ 
+          contents.map(item =>{
+            if(item.type === 'paragraph'){
+              return (
+                <p key={item.id}>{item.content}</p>
+              )
+            }else{
+                return (
+                <p key={item.id}><a href='#'>{item.content}</a></p>
+              )
+            }
+          })}
           </div>
           
           {/* Form de Comentario */}
-          <form className={styles.commentForm}>
+          <form onSubmit={handleAddComment} className={styles.commentForm}>
             <strong>Comenta ai Rabuju</strong>
-            <textarea placeholder='Comenta Logo, Ourubu!!!'/>
+            <textarea 
+                    placeholder='Comenta Logo, Ourubu!!!'
+                    name="comment"
+                    onChange={handleNewCommentChange}
+                    value={newComment}/>
             <footer>
                 <button type='submit'>Pubricar</button>
             </footer>
           </form>
           {/* Lista de Comentarios */}
           <div className={styles.commentList}>
-            <Comment/>
-            <Comment/>
-            <Comment/>
+              {
+                comments.map(comment => {
+                  return (
+                    <Comment key={comment.id} content={comment}/>
+                  )
+              })}
+            
           </div>
         </article>
     )

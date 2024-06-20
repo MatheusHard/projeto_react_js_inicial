@@ -64,7 +64,7 @@
     display: flex;
     align-items: center;
 
-    border-radius: 2px;/*NO tab, fica aredondado*/
+    border-radius: 2px;/*No tab, fica aredondado*/
 }
 .commentBox footer button:hover{
     color: var(--green-300);

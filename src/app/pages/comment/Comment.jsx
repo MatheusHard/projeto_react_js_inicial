@@ -1,7 +1,9 @@
-import { ThumbsUp, Trash } from '@phosphor-icons/react'
+import { ThumbsUp  } from '@phosphor-icons/react'
+import { FaTrashAlt } from "react-icons/fa";
 import styles from './Comment.module.css'
+
 import { Avatar } from '../../../components/avatar/Avatar'
-export function Comment(){
+export function Comment(props){
 
     return (
         <div className={styles.comment}>
@@ -19,10 +21,10 @@ export function Comment(){
                             </time>
                         </div>
                         <button title='Deletar comentario'>
-                            <Trash size={24}/>
+                            <FaTrashAlt size={20}/>
                         </button>
                     </header>
-                    <p>Q BOm, belo post, parabens!!!</p>
+                    <p>{props.content}</p>
                 </div>        
                 <footer>
                     <button>
