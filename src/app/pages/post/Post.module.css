@@ -94,9 +94,14 @@
     font-weight: bold;
     cursor: pointer;
 }
-.commentForm button[type=submit]:hover {
+/*not com disable, para o caso onde o botao esteja disable, o hover não funcione*/
+.commentForm button[type=submit]:not(:disabled):hover {
     background: var(--green-300);
 
+}
+.commentForm button:disabled{
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 .commentForm footer{
     visibility: hidden;

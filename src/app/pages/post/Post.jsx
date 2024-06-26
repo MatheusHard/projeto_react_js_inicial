@@ -23,11 +23,22 @@ export function Post({author, publishedAt, contents}) {
       setComments([...comments, newComment])
       setNewComment('')
    }
-
+    function handleNewCommentInvalid(){
+      event.target.setCustomValidity('Campo Obrigatorio!!')
+    }
    function handleNewCommentChange(){
+    event.target.setCustomValidity('')
     setNewComment(event.target.value)
    }
+   //Deletar Commentario
+   function deleteComment(comment) {
 
+    const commentsWithoutDeleteOne = comments.filter(c => {
+      return c != comment;
+    });
+    setComments(commentsWithoutDeleteOne)
+   }
+   const isCommentValid = newComment.length == 0;
    return (
         
         <article className={styles.post}>
@@ -66,9 +77,11 @@ export function Post({author, publishedAt, contents}) {
                     placeholder='Comenta Logo, Ourubu!!!'
                     name="comment"
                     onChange={handleNewCommentChange}
-                    value={newComment}/>
+                    value={newComment}
+                    onInvalid={handleNewCommentInvalid}
+                    required/>
             <footer>
-                <button type='submit'>Pubricar</button>
+                <button type='submit' disabled={isCommentValid}>Pubricar</button>
             </footer>
           </form>
           {/* Lista de Comentarios */}
@@ -76,7 +89,10 @@ export function Post({author, publishedAt, contents}) {
               {
                 comments.map(comment => {
                   return (
-                    <Comment key={comment.id} content={comment}/>
+                    <Comment 
+                      key={comment.id}
+                      content={comment}
+                      onDeleteComment={deleteComment}/>
                   )
               })}
             
